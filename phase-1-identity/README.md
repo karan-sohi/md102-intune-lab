@@ -8,17 +8,17 @@ I set the organization name to Northshore Health Clinic. Microsoft keeps the nam
 
 I created a break-glass account with Global Administrator assigned permanently and active, not PIM-eligible, since PIM activation could be the thing that's broken in an emergency. It's cloud-only, the password is long and kept offline.
 
-![Break-glass account role assignment](screenshots/p1-A-breakglass-global-admin.png)
+Screenshot: [Break-glass account role assignment](screenshots/p1-A-breakglass-global-admin.png)
 
 I also set up company branding (Entra ID > Custom branding) with a logo, a sign-in background and an "authorized staff only" message.
 
-![Branded sign-in page](screenshots/p1-A-branded-sign-in.png)
+Screenshot: [Branded sign-in page](screenshots/p1-A-branded-sign-in.png)
 
 ## Users and groups
 
 There are 10 fictional staff. I created 2 in the portal to learn the interface and the other 8 with [New-LabUsers.ps1](scripts/New-LabUsers.ps1) from [users.csv](scripts/users.csv). Every user has a department, which the dynamic groups use, and a usage location, which is needed before a licence can be assigned.
 
-![Users and departments](screenshots/p1-B-users-departments.png)
+Screenshot: [Users and departments](screenshots/p1-B-users-departments.png)
 
 The groups:
 
@@ -30,7 +30,7 @@ Two of the dynamic groups sat at 0 members for a while after I created them. The
 
 EMS E5 is assigned to `GRP-All-Staff` through group-based licensing, so a new staff member gets licensed as soon as their department is set. Group licences can only be added in the Microsoft 365 admin center now, Entra just shows them. I didn't assign Intune separately because EMS E5 already includes it.
 
-![Group-based licensing on GRP-All-Staff](screenshots/p1-B-group-licensing.png)
+Screenshot: [Group-based licensing on GRP-All-Staff](screenshots/p1-B-group-licensing.png)
 
 To run the script you need PowerShell 7 and the Graph modules:
 
@@ -46,11 +46,11 @@ Entra roles apply to the whole tenant, while Intune roles can be limited to cert
 
 Tom Becker (IT Administrator) is eligible for the Intune Administrator role through PIM, so he has to activate it when he needs it instead of having it all the time.
 
-![Intune Administrator eligible through PIM](screenshots/p1-C-tom-eligible-pim.png)
+Screenshot: [Intune Administrator eligible through PIM](screenshots/p1-C-tom-eligible-pim.png)
 
 For the help desk I made a custom Intune role called Helpdesk Operator. It can read devices and run sync, reboot, retire and wipe, but it can't change any policies.
 
-![Helpdesk Operator permissions](screenshots/p1-C-helpdesk-operator-permissions.png)
+Screenshot: [Helpdesk Operator permissions](screenshots/p1-C-helpdesk-operator-permissions.png)
 
 The role is assigned to `GRP-Helpdesk-Operators` (Ryan Mitchell). The assignment uses `GRP-Clinical-Users` as the scope group, so Ryan can only act on clinical staff's devices, and the `Clinical` scope tag, so he only sees objects tagged Clinical.
 
@@ -58,7 +58,7 @@ The way I think about it: the role is what he can do, the admin group is who get
 
 When I signed in as Ryan, Tenant administration gave a "You don't have access" error, which is what I wanted.
 
-![Help desk account blocked from tenant administration](screenshots/p1-C-ryan-no-access.png)
+Screenshot: [Help desk account blocked from tenant administration](screenshots/p1-C-ryan-no-access.png)
 
 ## Entra device settings
 
@@ -71,7 +71,7 @@ These are tenant-wide and mostly apply when a device joins (Entra ID > Devices >
 - Microsoft Entra LAPS is on
 - Users can't look up their own BitLocker recovery keys
 
-![Device settings](screenshots/p1-D-device-settings-1.png)
+Screenshot: [Device settings](screenshots/p1-D-device-settings-1.png)
 
 I skipped Enterprise State Roaming because its settings moved to Windows settings backup and restore in May 2026.
 
@@ -84,17 +84,17 @@ I made two dynamic device groups:
 - `GRP-Autopilot-Devices` picks up every Autopilot device: `(device.devicePhysicalIds -any (_ -startsWith "[ZTDId]"))`
 - `GRP-Clinical-Devices` picks up Autopilot devices with the group tag Clinical: `(device.devicePhysicalIds -any (_ -eq "[OrderID]:Clinical"))`
 
-![GRP-Clinical-Devices rule](screenshots/p1-E-clinical-devices-rule.png)
+Screenshot: [GRP-Clinical-Devices rule](screenshots/p1-E-clinical-devices-rule.png)
 
 The `Clinical` scope tag is assigned to `GRP-Clinical-Devices`, so clinical devices get tagged automatically and show up for the help desk role.
 
-![Clinical scope tag assigned to the device group](screenshots/p1-E-clinical-scope-tag.png)
+Screenshot: [Clinical scope tag assigned to the device group](screenshots/p1-E-clinical-scope-tag.png)
 
 ### Automatic enrollment
 
 MDM user scope is set to `GRP-All-Staff`, so staff devices enroll in Intune when they join Entra ID. The WIP user scope is left at None because Windows Information Protection is being retired.
 
-![Automatic enrollment](screenshots/p1-E-automatic-enrollment.png)
+Screenshot: [Automatic enrollment](screenshots/p1-E-automatic-enrollment.png)
 
 ### Enrollment restrictions
 
@@ -104,9 +104,7 @@ MDM user scope is set to `GRP-All-Staff`, so staff devices enroll in Intune when
 
 When a user is in more than one restriction, the one with the higher priority wins, and the default always comes last.
 
-![Platform restriction](screenshots/p1-E-platform-restriction.png)
-
-![Device limit restrictions](screenshots/p1-E-device-limits.png)
+Screenshots: [platform restriction](screenshots/p1-E-platform-restriction.png), [device limits](screenshots/p1-E-device-limits.png)
 
 ### Enrollment Status Page
 
@@ -114,7 +112,7 @@ When a user is in more than one restriction, the one with the higher priority wi
 
 I left Windows updates on during setup. It's slower on the VM but closer to how a real clinic would set it up.
 
-![ESP settings](screenshots/p1-E-esp-settings.png)
+Screenshot: [ESP settings](screenshots/p1-E-esp-settings.png)
 
 ### Company Portal
 
@@ -122,4 +120,4 @@ Company Portal uses the clinic name, logo and teal theme colour, with Northshore
 
 The privacy statement URL is a required field. The clinic doesn't have a real privacy page, so I used Microsoft's.
 
-![Company Portal customization](screenshots/p1-E-company-portal.png)
+Screenshot: [Company Portal customization](screenshots/p1-E-company-portal.png)
