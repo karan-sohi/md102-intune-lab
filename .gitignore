@@ -1,0 +1,21 @@
+# Never commit secrets or tenant-specific exports
+*.pfx
+*.pem
+*.key
+*secret*
+*password*
+*credential*
+.env
+
+# Raw, unredacted screenshots (only commit redacted copies in screenshots/)
+screenshots-raw/
+
+# Script output and exports that may contain tenant IDs or user data
+*-export.csv
+*-report.csv
+output/
+
+# macOS and editor files
+.DS_Store
+.vscode/
+*.swp
