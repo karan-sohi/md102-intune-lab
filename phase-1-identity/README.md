@@ -1,14 +1,12 @@
-# Phase 1: Identity and enrollment
+# Identity and enrollment
 
-This phase covers the "Prepare infrastructure for devices" part of MD-102 (20-25% of the exam). The goal is to get the tenant ready for devices to enroll: users, groups, admin roles, enrollment settings, Windows Hello for Business and an Autopilot profile.
-
-So far tenant basics, users and groups, admin roles and Entra device settings are done. Still to do: enrollment (automatic enrollment, restrictions, Enrollment Status Page), Windows Hello for Business, and the Autopilot profile and device registration.
+This covers the "Prepare infrastructure for devices" part of MD-102: getting the tenant ready so devices can enroll.
 
 ## Tenant basics
 
 I set the organization name to Northshore Health Clinic. Microsoft keeps the name separately for each billing account and for the Entra tenant, so the tenant name has to be changed in Entra ID > Overview > Properties.
 
-I created a break-glass account with Global Administrator assigned permanently and active, not PIM-eligible, since PIM activation could be the thing that's broken in an emergency. It's cloud-only, the password is long and kept offline, and it will be excluded from every Conditional Access policy in Phase 3.
+I created a break-glass account with Global Administrator assigned permanently and active, not PIM-eligible, since PIM activation could be the thing that's broken in an emergency. It's cloud-only, the password is long and kept offline.
 
 ![Break-glass account role assignment](screenshots/p1-A-breakglass-global-admin.png)
 
@@ -54,7 +52,7 @@ For the help desk I made a custom Intune role called Helpdesk Operator. It can r
 
 ![Helpdesk Operator permissions](screenshots/p1-C-helpdesk-operator-permissions.png)
 
-The role is assigned to `GRP-Helpdesk-Operators` (Ryan Mitchell). The assignment uses `GRP-Clinical-Users` as the scope group, so Ryan can only act on clinical staff's devices, and the `Clinical` scope tag, so he only sees objects tagged Clinical. The tag isn't on any devices yet; that happens in Phase 2 once devices enroll.
+The role is assigned to `GRP-Helpdesk-Operators` (Ryan Mitchell). The assignment uses `GRP-Clinical-Users` as the scope group, so Ryan can only act on clinical staff's devices, and the `Clinical` scope tag, so he only sees objects tagged Clinical.
 
 The way I think about it: the role is what he can do, the admin group is who gets it, the scope group is whose devices, and the scope tag is which objects he can see.
 
@@ -67,10 +65,10 @@ When I signed in as Ryan, Tenant administration gave a "You don't have access" e
 These are tenant-wide and mostly apply when a device joins (Entra ID > Devices > Device settings):
 
 - Users can join and register devices (needed for Autopilot and personal devices)
-- MFA to join is off here because I'll enforce it with Conditional Access in Phase 3, which is what Microsoft recommends
+- MFA to join is off here; Microsoft recommends enforcing it with Conditional Access instead
 - Max 20 devices per user
 - Users aren't made local admins when they join a device, so staff stay standard users
-- Microsoft Entra LAPS is on, for Windows LAPS in Phase 3
+- Microsoft Entra LAPS is on
 - Users can't look up their own BitLocker recovery keys
 
 ![Device settings](screenshots/p1-D-device-settings-1.png)
