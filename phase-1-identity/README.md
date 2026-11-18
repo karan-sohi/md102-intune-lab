@@ -74,3 +74,52 @@ These are tenant-wide and mostly apply when a device joins (Entra ID > Devices >
 ![Device settings](screenshots/p1-D-device-settings-1.png)
 
 I skipped Enterprise State Roaming because its settings moved to Windows settings backup and restore in May 2026.
+
+## Enrollment
+
+### Device groups
+
+I made two dynamic device groups:
+
+- `GRP-Autopilot-Devices` picks up every Autopilot device: `(device.devicePhysicalIds -any (_ -startsWith "[ZTDId]"))`
+- `GRP-Clinical-Devices` picks up Autopilot devices with the group tag Clinical: `(device.devicePhysicalIds -any (_ -eq "[OrderID]:Clinical"))`
+
+![GRP-Clinical-Devices rule](screenshots/p1-E-clinical-devices-rule.png)
+
+The `Clinical` scope tag is assigned to `GRP-Clinical-Devices`, so clinical devices get tagged automatically and show up for the help desk role.
+
+![Clinical scope tag assigned to the device group](screenshots/p1-E-clinical-scope-tag.png)
+
+### Automatic enrollment
+
+MDM user scope is set to `GRP-All-Staff`, so staff devices enroll in Intune when they join Entra ID. The WIP user scope is left at None because Windows Information Protection is being retired.
+
+![Automatic enrollment](screenshots/p1-E-automatic-enrollment.png)
+
+### Enrollment restrictions
+
+- **Windows - Corporate only** (priority 1, assigned to `GRP-All-Staff`) blocks personally owned Windows devices
+- The default device limit is 5 per user
+- **Pilot - 1 device** limits `GRP-Pilot-Users` to 1 device
+
+When a user is in more than one restriction, the one with the higher priority wins, and the default always comes last.
+
+![Platform restriction](screenshots/p1-E-platform-restriction.png)
+
+![Device limit restrictions](screenshots/p1-E-device-limits.png)
+
+### Enrollment Status Page
+
+`ESP - Clinic devices` is assigned to `GRP-Autopilot-Devices`. It shows setup progress and blocks the device until all apps and profiles are installed, so staff don't get to the desktop on a half-configured device. If something fails, the user sees "Setup didn't finish. Please contact Northshore IT." and can either reset the device or continue. Log collection is on so the user can save logs for IT.
+
+I left Windows updates on during setup. It's slower on the VM but closer to how a real clinic would set it up.
+
+![ESP settings](screenshots/p1-E-esp-settings.png)
+
+### Company Portal
+
+Company Portal uses the clinic name, logo and teal theme colour, with Northshore IT as the support contact. The remove and reset buttons are hidden on corporate Windows devices so staff can't unenroll or wipe a clinic laptop themselves.
+
+The privacy statement URL is a required field. The clinic doesn't have a real privacy page, so I used Microsoft's.
+
+![Company Portal customization](screenshots/p1-E-company-portal.png)
