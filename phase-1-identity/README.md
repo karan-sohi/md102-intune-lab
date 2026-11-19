@@ -121,3 +121,39 @@ Company Portal uses the clinic name, logo and teal theme colour, with Northshore
 The privacy statement URL is a required field. The clinic doesn't have a real privacy page, so I used Microsoft's.
 
 Screenshot: [Company Portal customization](screenshots/p1-E-company-portal.png)
+
+## Windows Hello for Business
+
+I turned on Windows Hello for Business in the tenant-wide enrollment setting (Devices > Enrollment > Windows > Windows Hello for Business), so it applies as soon as a device enrolls. It requires a TPM and a PIN of at least 6 digits. PINs don't expire, and biometrics and security keys are allowed. The tenant is cloud-only, so no hybrid trust model is needed.
+
+Screenshot: [Windows Hello for Business settings](screenshots/p1-F-whfb-settings.png)
+
+## Windows Autopilot
+
+The deployment profile `Autopilot Clinic user driven` is assigned to `GRP-Autopilot-Devices`:
+
+- User-driven, Microsoft Entra joined
+- License terms, privacy settings and change account options hidden
+- The user is a standard user, not a local admin
+- Device name template `NHC-%SERIAL%`
+
+Screenshot: [Deployment profile](screenshots/p1-G-autopilot-profile.png)
+
+To register the VM, I ran `Get-WindowsAutopilotInfo -Online -GroupTag Clinical` from Shift+F10 during OOBE and signed in with my admin account. A few things got in the way:
+
+- The sign-in window only accepted personal Microsoft accounts at first. It worked after I set the execution policy again in the new PowerShell window so the Graph module could load.
+- The script ended with a 509 error and "0 devices imported". The 509 was Graph throttling the status check, not the import. The device was already in the Autopilot list with the Clinical tag.
+
+After the profile showed as assigned, I restored the clean OOBE snapshot and set the VM up as Sarah Chen. She got the branded sign-in, the Enrollment Status Page, and then the PIN setup with the 6-digit rule from the Hello for Business settings.
+
+Screenshot: [PIN requirements during setup](screenshots/p1-G-pin-requirements.png)
+
+The device came out as `NHC-LABWIN01`, Entra joined by Sarah, and she can't change the management settings because she's a standard user.
+
+Screenshots: [device name](screenshots/p1-G-device-name.png), [work account connected](screenshots/p1-G-entra-joined.png)
+
+In Intune it shows up as corporate-owned, with Sarah as the primary user and the Clinical scope tag, which it got from the group tag through `GRP-Clinical-Devices`.
+
+Screenshots: [Intune device overview](screenshots/p1-G-intune-device.png), [device properties and scope tag](screenshots/p1-G-intune-properties.png)
+
+Setup took about 2.5 hours on the VM, mostly Windows updates during the ESP with only 3 GB of RAM.

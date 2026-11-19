@@ -14,7 +14,7 @@ Northshore Health Clinic is a made-up clinic with 10 staff across Clinical, Rece
 
 ## Contents
 
-- [Identity and enrollment](phase-1-identity/): tenant setup, users and groups, group-based licensing, admin roles with a custom Intune role, Entra device settings, and Intune enrollment settings
+- [Identity and enrollment](phase-1-identity/): tenant setup, users and groups, group-based licensing, admin roles with a custom Intune role, Entra device settings, Intune enrollment settings, Windows Hello for Business and Windows Autopilot
 
 ## Scripts
 
