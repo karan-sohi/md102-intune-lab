@@ -70,6 +70,18 @@ Sarah is a pilot user, so the VM only got Ring 1. On the VM, Windows Update show
 
 Screenshots: [pilot ring succeeded](screenshots/p2-E-pilot-ring-succeeded.png), [Windows Update managed](screenshots/p2-E-updates-managed.png), [configured update policies](screenshots/p2-E-configured-update-policies.png)
 
+## Remote actions
+
+I ran the safe remote actions on the device and left the destructive ones (retire, wipe, Fresh start, Autopilot reset) alone so the VM stays enrolled.
+
+- Quick malware scan and Defender intelligence update from the Secure menu. The definitions on the VM went from 1.463.411.0 to 1.463.428.0.
+- Collect diagnostics, which uploaded a zip of event logs, registry and MDM logs to Intune in about 8 minutes.
+- Restart, sent by Ryan from the help desk account. His menu only offers what his role allows: sync, restart, retire and wipe. Diagnostics, remediation, locate device and the local admin password are greyed out.
+
+Device action status shows the result of each action, and the Intune audit log shows who sent it. The restart is logged as `rebootNow` initiated by Ryan.
+
+Screenshots: [help desk remote actions](screenshots/p2-F-helpdesk-remote-actions.png), [device action status](screenshots/p2-F-device-action-status.png), [audit log](screenshots/p2-F-audit-log-ryan-restart.png), [diagnostics collected](screenshots/p2-F-diagnostics-complete.png), [Defender intelligence updated](screenshots/p2-F-defender-intelligence-updated.png)
+
 ## Result
 
 All policies show Succeeded on the device, and it's Compliant, corporate-owned and tagged Clinical.
