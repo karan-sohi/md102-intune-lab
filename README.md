@@ -10,12 +10,13 @@ Northshore Health Clinic is a made-up clinic with 10 staff across Clinical, Rece
 
 - Admin workstation: macOS with PowerShell 7 and Microsoft Graph PowerShell
 - Hypervisor: Oracle VirtualBox 7 on a Windows laptop
-- Test device: `LAB-WIN-01`, a Windows 11 Enterprise VM (EFI, TPM 2.0, unique serial for Autopilot) with a clean OOBE snapshot to roll back to
+- Test device: a Windows 11 Enterprise VM (EFI, TPM 2.0, unique serial for Autopilot) with a clean OOBE snapshot to roll back to. It's called `LAB-WIN-01` in VirtualBox and shows up in Entra ID and Intune as `NHC-LABWIN01`, the name Autopilot gave it.
 
 ## Contents
 
 - [Identity and enrollment](phase-1-identity/): tenant setup, users and groups, group-based licensing, admin roles with a custom Intune role, Entra device settings, Intune enrollment settings, Windows Hello for Business and Windows Autopilot
 - [Device management](device-management/): configuration profile, compliance, BitLocker, Windows LAPS, update rings and remote actions
+- [Protection](protection/): Conditional Access for MFA, legacy authentication and compliant devices, tested by breaking compliance on purpose
 
 ## Scripts
 
