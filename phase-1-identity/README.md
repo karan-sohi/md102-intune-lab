@@ -1,6 +1,6 @@
 # Identity and enrollment
 
-This covers the "Prepare infrastructure for devices" part of MD-102: getting the tenant ready so devices can enroll.
+This covers getting the tenant ready so devices can enroll.
 
 ## Tenant basics
 

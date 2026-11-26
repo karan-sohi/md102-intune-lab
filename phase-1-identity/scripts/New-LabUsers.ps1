@@ -3,7 +3,7 @@
     Bulk-creates lab users in Microsoft Entra ID from a CSV file using Microsoft Graph PowerShell.
 
 .DESCRIPTION
-    Part of the MD-102 Intune lab (Northshore Health Clinic).
+    Part of the Northshore Health Clinic Intune lab.
     Reads users.csv, skips any user that already exists, and creates the rest with
     department, job title and usage location set. Department drives the dynamic groups,
     and usage location is required before a licence can be assigned.

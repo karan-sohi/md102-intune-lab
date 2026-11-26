@@ -1,6 +1,6 @@
 # Microsoft Intune Endpoint Management Lab
 
-Hands-on lab that builds endpoint management for a fictional 10-person health clinic, **Northshore Health Clinic**, using Microsoft Intune, Microsoft Entra ID and Windows Autopilot. Built while preparing for the **Microsoft 365 Certified: Endpoint Administrator Associate (MD-102)** exam.
+Hands-on lab that builds endpoint management for a fictional 10-person health clinic, **Northshore Health Clinic**, using Microsoft Intune, Microsoft Entra ID and Windows Autopilot.
 
 ## Scenario
 
@@ -16,7 +16,7 @@ Northshore Health Clinic is a made-up clinic with 10 staff across Clinical, Rece
 
 - [Identity and enrollment](phase-1-identity/): tenant setup, users and groups, group-based licensing, admin roles with a custom Intune role, Entra device settings, Intune enrollment settings, Windows Hello for Business and Windows Autopilot
 - [Device management](device-management/): configuration profile, compliance, BitLocker, Windows LAPS, update rings and remote actions
-- [Protection](protection/): Conditional Access for MFA, legacy authentication and compliant devices, tested by breaking compliance on purpose
+- [Protection](protection/): Conditional Access for MFA, legacy authentication, compliant devices and admin sessions, plus Defender Antivirus and Windows Firewall policies
 
 ## Scripts
 

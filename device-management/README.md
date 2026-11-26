@@ -1,6 +1,6 @@
 # Device management
 
-This covers the "Manage and maintain devices" and part of the "Protect devices" sections of MD-102: pushing settings to the enrolled device, deciding what a compliant clinic device is, and turning on BitLocker, Windows LAPS and update rings. Everything was tested on `NHC-LABWIN01`, the VM enrolled through Autopilot as Sarah Chen.
+This covers pushing settings to the enrolled device, deciding what a compliant clinic device is, and turning on BitLocker, Windows LAPS and update rings. Everything was tested on `NHC-LABWIN01`, the VM enrolled through Autopilot as Sarah Chen.
 
 All policies are assigned to `GRP-Autopilot-Devices` unless noted, and tagged Default and Clinical.
 
